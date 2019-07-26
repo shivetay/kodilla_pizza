@@ -108,6 +108,7 @@
     /* creates new Product */
     initMenu: function(){
       const testProduct = new Product(); // eslint-disable-line no-unused-vars
+      console.log(testProduct);
     },
 
     /* init data from source */
