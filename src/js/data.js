@@ -24,9 +24,9 @@ dataSource.products = {
         type: 'radios',
         options: {
           latte: {label: 'Latte', price: 1, default: true},
-          cappuccino: {label: 'Cappuccino', price: 1},
-          espresso: {label: 'Espresso', price: 1},
-          macchiato : {label: 'Macchiato ', price: 1},
+          cappuccino: {label: 'Cappuccino', price: 2},
+          espresso: {label: 'Espresso', price: 3},
+          macchiato : {label: 'Macchiato ', price: 4},
         },
       },
     },
@@ -60,8 +60,8 @@ dataSource.products = {
         type: 'checkboxes',
         options: {
           olives: {label: 'Olives', price: 2, default: true},
-          redPeppers: {label: 'Red peppers', price: 2, default: true},
-          greenPeppers: {label: 'Green peppers', price: 2, default: true},
+          redPeppers: {label: 'Red peppers', price: 3, default: true},
+          greenPeppers: {label: 'Green peppers', price: 3, default: true},
           mushrooms: {label: 'Mushrooms', price: 2, default: true},
           basil: {label: 'Fresh basil', price: 2, default: true},
           salami: {label: 'Salami', price: 3},
