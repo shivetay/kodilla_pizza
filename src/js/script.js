@@ -67,9 +67,11 @@
         thisProduct.getElements();
         thisProduct.initAcordeon();
         thisProduct.initOrderForm();
-        thisProduct.processOrder();
+        thisProduct.initAmountWidget();
+        thisProduct.processOrder();  
       }
      
+      /* close acordion */
       closeAccordion() {
         const thisProduct = this;
   
@@ -77,7 +79,7 @@
           classNames.menuProduct.wrapperActive
         );
       }
-  
+
       /*render product*/
       renderInMenu() {
         const thisProduct = this;
@@ -109,8 +111,20 @@
         thisProduct.priceElem = thisProduct.element.querySelector(
           select.menuProduct.priceElem
         );
+        thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+        thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
       }
-  
+
+      /* init amount widget */
+      initAmountWidget(){
+        const thisProduct = this;
+
+        thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+        thisProduct.amountWidgetElem.addEventListener('update', function(){
+          thisProduct.processOrder();
+        })
+    }
+
       /* init accordion */
       initAcordeon() {
         const thisProduct = this;
@@ -158,42 +172,112 @@
        /*process order */
     processOrder(){
       const thisProduct = this;
-      console.log(this);
+    //   console.log(this);
       
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
-      // console.log('**form data** ', formData);
+    //   console.log('**form data** ', formData);
   
       /* set variable price to equal thisProduct.data.price */
       let price = thisProduct.data.price;
-      console.log('price ***', price);
+    //   console.log('price ***', price);
       
       /* START LOOP: for each paramId in thisProduct.data.params */
       for(let paramId in thisProduct.data.params){
         /* save the element in thisProduct.data.params with key paramId as const param */
         const PARAM = thisProduct.data.params[paramId];
+        // console.log('*** param ***', PARAM)
         /* START LOOP: for each optionId in param.options */
         for(let optionId in PARAM.options){
           /* save the element in param.options with key optionId as const option */
           const OPTION = PARAM.options[optionId];
-  
-          /* split if block */
+        //   console.log(PARAM.options, '*******');
+        //   console.log(OPTION, '*** option');
+          /* start if block */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
   
           /* START IF: if option is selected and option is not default */
           if(optionSelected && !OPTION.default){
             /* add price of option to variable price */
             price += OPTION.price;
-          }else if(optionSelected && OPTION.default){
+          } else if(optionSelected && OPTION.default){
             /* deduct price of option from price */
             price += OPTION.price;
           }
+          /* image if block */
+        //let img = thisProduct.data.images;
+        // console.log('*** image ***', img);
+        //console.log('.'+ thisProduct.data.params + '-' + thisProduct.data.options);
+            //if (img === classNames('.'+ PARAM.options[optionId]))
         }/* END LOOP: for each optionId in param.options */
       }/* END LOOP: for each paramId in thisProduct.data.params */
+      /* multiply price by amount */
+        price *= thisProduct.amountWidget.value;
         /* set the contents of thisProduct.priceElem to be the value of variable price */
         thisProduct.priceElem.innerHTML = price;
+        
       }
     }
+
+    /* Amount widget class */
+    class AmountWidget {
+        constructor (element){
+            const thisWidget = this;
+            
+            thisWidget.getElements(element);
+            thisWidget.setValue(thisWidget.input.value);
+
+            console.log('amountWidget:', thisWidget);
+            console.log('constructor arguments:', element);
+        }
+        getElements(element){
+        const thisWidget = this;
+      
+        thisWidget.element = element;
+        thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+        thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+        thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      }
+      /* set value */
+      setValue(value) {
+          const thisWidget = this;
+
+          const newValue = parseInt(value);
+
+          /* TODO: add validation */
+          thisWidget.value = newValue;
+          thisWidget.announce();
+          thisWidget.input.value = thisWidget.value;
+      }
+      /* ad listeners */
+      initActions(){
+        const thisWidget = this;
+
+        thisWidget.input.addEventListener('change', function(){
+          thisWidget.setValue(thisWidget.input.value);
+          console.log(thisWidget);
+        });
+        thisWidget.linkDecrease.addEventListener('click', function(e){
+          e.preventDefault();
+          thisWidget.setValue(thisWidget.value) - 1;
+        });
+        thisWidget.linkIncrease.addEventListener('click', function(e){
+          e.preventDefault();
+          thisWidget.setValue(thisWidget.value) + 1;
+        });
+      }
+
+      /* annouce method */
+      announce() {
+        const thisWidget = this;
+
+        const event = new Event('update');
+        thisWidget.element.dispatchEvent(event);
+      }
+    }
+
+    
+  
   
     const app = {
       productRef: [],
@@ -222,11 +306,11 @@
       /* app init */
       init: function() {
         const thisApp = this;
-        console.log('*** App starting ***');
-        console.log('thisApp:', thisApp);
-        console.log('classNames:', classNames);
-        console.log('settings:', settings);
-        console.log('templates:', templates);
+        // console.log('*** App starting ***');
+        // console.log('thisApp:', thisApp);
+        // console.log('classNames:', classNames);
+        // console.log('settings:', settings);
+        // console.log('templates:', templates);
   
         thisApp.initData();
         thisApp.initMenu();
@@ -235,4 +319,3 @@
   
     app.init();
   }
-  
