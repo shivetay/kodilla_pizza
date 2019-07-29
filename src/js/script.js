@@ -204,11 +204,15 @@
             /* deduct price of option from price */
             price += OPTION.price;
           }
-          /* image if block */
-        //let img = thisProduct.data.images;
-        // console.log('*** image ***', img);
-        //console.log('.'+ thisProduct.data.params + '-' + thisProduct.data.options);
-            //if (img === classNames('.'+ PARAM.options[optionId]))
+          /*TODO: FIXME: image if block */
+            let img = thisProduct.data.images;
+            const imgClass = paramId + '-' + optionId;
+            console.log(imgClass);
+            if (img.classList){
+              
+                console.log('**** imgs', imgs);
+
+            }
         }/* END LOOP: for each optionId in param.options */
       }/* END LOOP: for each paramId in thisProduct.data.params */
       /* multiply price by amount */
@@ -226,6 +230,7 @@
             
             thisWidget.getElements(element);
             thisWidget.setValue(thisWidget.input.value);
+            thisWidget.initActions();
 
             console.log('amountWidget:', thisWidget);
             console.log('constructor arguments:', element);
@@ -249,7 +254,7 @@
           thisWidget.announce();
           thisWidget.input.value = thisWidget.value;
       }
-      /* ad listeners */
+      /*FIXME: ad listeners */
       initActions(){
         const thisWidget = this;
 
