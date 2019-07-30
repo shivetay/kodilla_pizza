@@ -205,16 +205,18 @@
             price += OPTION.price;
           }
           /*TODO: FIXME: image if block */
-          // const imgClass = '.' + paramId + '-' + optionId;
-          const img = thisProduct.data.images;
+          const imgClass = '.' + paramId + '-' + optionId;
+          const img = thisProduct.imageWrapper.children;
           console.log('*****', img);
-            if(img === optionSelected){
-              for(let imgs in img){
+            if(img === optionSelected && img === imgClass){
+              for(let imgs of img){
+                console.log('********imgs', imgs);
                 imgs.classList.add(classNames.menuProduct.imageVisible);
                 console.log('********imgs', imgs);
               }
-            }else {
-              for(let imgs in img){
+            }
+            else {
+              for(let imgs of img){
                 imgs.classList.remove(classNames.menuProduct.imageVisible);
                 console.log('imgs**', imgs);
               }
@@ -293,10 +295,7 @@
         thisWidget.element.dispatchEvent(event);
       }
     }
-
     
-  
-  
     const app = {
       productRef: [],
       closeAllAccordions: function() {
