@@ -205,14 +205,21 @@
             price += OPTION.price;
           }
           /*TODO: FIXME: image if block */
-            // let img = thisProduct.data.images;
-            // const imgClass = paramId + '-' + optionId;
-            // console.log(imgClass);
-            // if (img.classList){
-              
-            //     console.log('**** imgs', imgs);
-
-            // }
+          // const imgClass = '.' + paramId + '-' + optionId;
+          const img = thisProduct.data.images;
+          console.log('*****', img);
+            if(img === optionSelected){
+              for(let imgs in img){
+                imgs.classList.add(classNames.menuProduct.imageVisible);
+                console.log('********imgs', imgs);
+              }
+            }else {
+              for(let imgs in img){
+                imgs.classList.remove(classNames.menuProduct.imageVisible);
+                console.log('imgs**', imgs);
+              }
+            }
+            console.log('*', img);
         }/* END LOOP: for each optionId in param.options */
       }/* END LOOP: for each paramId in thisProduct.data.params */
       /* multiply price by amount */
