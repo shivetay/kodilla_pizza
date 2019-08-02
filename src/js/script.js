@@ -222,7 +222,6 @@
           const OPTION = PARAM.options[optionId];
           /* start if block */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
-          console.log('option', optionSelected);
           /* START IF: if option is selected and option is not default */
           if(optionSelected && !OPTION.default){
             /*FIXME: add price of option to variable price */
@@ -383,7 +382,6 @@
 
         /* test cart */
         thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-        console.log('thisCart.products', thisCart.products);
       }
     }
 
@@ -400,10 +398,10 @@
         thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
 
         thisCartProduct.getElements(element);
-
-        console.log('this cart product **', thisCartProduct);
+        thisCartProduct.initAmountWidget();
+        // thisCartProduct.initWidgetActions();
       }
-
+      /* get elements method */
       getElements(element){
         const thisCartProduct = this;
         thisCartProduct.dom = {};
@@ -414,8 +412,19 @@
         thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
         thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
       }
+
+      /* FIXME: ammount widget */
+      initAmountWidget(){
+        const thisCartProduct = this;
+        
+        thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
+        thisCartProduct.amountWidget.addEventListener('update', function(){
+          thisCartProduct.amount = thisCartProduct.amountWidget.value;
+          thisCartProduct.price = priceSingle * thisCartProduct.amount;
+          thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+        });
+      }  
     }
-    
     const app = {
       productRef: [],
       closeAllAccordions: function() {
