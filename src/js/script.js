@@ -376,7 +376,11 @@
         });
         thisCart.dom.productList.addEventListener('update', function(){
           thisCart.update();
-        })
+        });
+        thisCart.dom.productList.addEventListener('update', function(event){
+          thisCart.remove(event);
+          console.log('***', thisCart.remove(event));
+        });
       }
       /* add to cart */
       add(menuProduct){
@@ -406,6 +410,7 @@
         });
         thisCart.dom.wrapper.dispatchEvent(event);
 
+        //FIXME:
         for(let cartProduct of thisCart.products){
           cartProduct.subtotalPrice += thisCart.price;
           cartProduct.totalNumber += thisCart.amount;
@@ -417,6 +422,18 @@
             elem.innerHTML = thisCart[key];
           }
         }
+      }
+      /*TODO: FIXME: remove method for cart */
+      remove(cartProduct){
+        const thisCart = this;
+        /* const idext with cartProduct as index of thisCart.products arr */
+        const index = thisCart.products.indexOf(cartProduct);
+        /*remove values from arr */
+        thisCart.products.splice(index);
+        /*remove from DOM */
+        cartProduct.dom.wrapper.remove();
+
+        thisCart.update();
       }
     }
 
@@ -434,7 +451,21 @@
 
         thisCartProduct.getElements(element);
         thisCartProduct.initAmountWidget();
+        thisCartProduct.initActions();
         // thisCartProduct.initWidgetActions();
+      }
+      /* init all actions */
+      initActions(){
+        const thisCartProduct = this;
+
+        thisCartProduct.dom.edit.addEventListener('click', function(e){
+          e.preventDefault();
+        });
+        thisCartProduct.dom.remove.addEventListener('click', function(e){
+          e.preventDefault();
+          thisCartProduct.remove();
+          console.log('remove');
+        })
       }
      /* get elements method */
       getElements(element){
@@ -462,6 +493,7 @@
       /* remove method */
       remove(){
         const thisCartProduct = this;
+
         const event = new CustomEvent('remove', {
           bubbles: true,
           detail: {
