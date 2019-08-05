@@ -414,8 +414,8 @@
         for(let cartProduct of thisCart.products){
           cartProduct.subtotalPrice += thisCart.price;
           cartProduct.totalNumber += thisCart.amount;
-          console.log('**', cartProduct.subtotalPrice);
-          console.log('**', cartProduct.totalNumber);
+          // console.log('**', cartProduct.subtotalPrice);
+          // console.log('**', cartProduct.totalNumber);
         }
         for(let key of thisCart.renderTotalsKeys){
           for(let elem of thisCart.dom[key]){
@@ -433,9 +433,10 @@
         /*remove values from arr */
         thisCart.products.splice(index);
         /*remove from DOM */
-        thisCartProduct.dom.wrapper.remove();
+        cartProduct.dom.wrapper.remove();
 
         thisCart.updateMethod();
+        console.log('this Cart update', thisCart);
       }
     }
 
@@ -467,7 +468,7 @@
           e.preventDefault();
           thisCartProduct.remove();
           console.log('remove');
-        })
+        });
       }
      /* get elements method */
       getElements(element){
