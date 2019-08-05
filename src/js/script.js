@@ -524,12 +524,6 @@
 
         const thisApp = this;
 
-        //new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
-        // for (let productData in thisApp.data.products) {
-        //   this.productRef.push(
-        //     new Product(productData, thisApp.data.products[productData], this)
-        //   );
-        // }
         for (let productData in thisApp.data.products) {
           this.productRef.push(
             new Product(thisApp.data.products[productData].id, thisApp.data.products[productData])
@@ -559,12 +553,6 @@
           });
 
           console.log('thisApp.data', JSON.stringify(thisApp.data));
-  
-        // for (let productData in thisApp.data.products) {
-        //   this.productRef.push(
-        //     new Product(productData, thisApp.data.products[productData], this)
-        //   );
-        // }
       },
   
       /* app init */
@@ -577,7 +565,6 @@
         // console.log('templates:', templates);
   
         thisApp.initData();
-        //thisApp.initMenu();
         thisApp.initCart();
       },
       initCart: function() {
