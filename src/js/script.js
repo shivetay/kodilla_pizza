@@ -377,9 +377,9 @@
         thisCart.dom.productList.addEventListener('update', function(){
           thisCart.update();
         });
-        thisCart.dom.productList.addEventListener('update', function(event){
-          thisCart.remove(event);
-          console.log('***', thisCart.remove(event));
+        thisCart.dom.productList.addEventListener('remove', function(){
+          thisCart.remove(event.detail.cartProduct);
+          console.log('***', thisCart.remove());
         });
       }
       /* add to cart */
@@ -426,14 +426,16 @@
       /*TODO: FIXME: remove method for cart */
       remove(cartProduct){
         const thisCart = this;
+        console.log('this Cart', thisCart);
         /* const idext with cartProduct as index of thisCart.products arr */
         const index = thisCart.products.indexOf(cartProduct);
+        console.log('index', index);
         /*remove values from arr */
         thisCart.products.splice(index);
         /*remove from DOM */
-        cartProduct.dom.wrapper.remove();
+        thisCartProduct.dom.wrapper.remove();
 
-        thisCart.update();
+        thisCart.updateMethod();
       }
     }
 
