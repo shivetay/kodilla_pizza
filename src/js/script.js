@@ -77,6 +77,12 @@
         defaultDeliveryFee: 20,
       },
       // CODE ADDED END
+      /* add local db */
+      db: {
+        url: '//localhost:3131',
+        product: 'product',
+        order: 'order',
+      },
     };
     
     const templates = {
@@ -515,19 +521,50 @@
       initMenu: function() {
         // const testProduct = new Product(); // eslint-disable-line no-unused-vars
         // console.log(testProduct);
+
+        const thisApp = this;
+
+        //new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+        // for (let productData in thisApp.data.products) {
+        //   this.productRef.push(
+        //     new Product(productData, thisApp.data.products[productData], this)
+        //   );
+        // }
+        for (let productData in thisApp.data.products) {
+          this.productRef.push(
+            new Product(thisApp.data.products[productData].id, thisApp.data.products[productData])
+          );
+        }
       },
   
       /* init data from source */
       initData: function() {
         const thisApp = this;
   
-        thisApp.data = dataSource;
+        thisApp.data = {};
+        /*save andpoitn url */
+        const url = settings.db.url + '/' + settings.db.product;
+
+        fetch(url)
+          .then(function(rawResponse){
+            return rawResponse.json();
+          })
+          .then(function(parsedResponse){
+            console.log('parsedResponse', parsedResponse);
+
+            /* save parsedResponse as thisApp.data.products */
+            parsedResponse = thisApp.data.products;
+            /* execute init method */
+            thisApp.initMenu();
+          });
+
+          console.log('thisApp.data', JSON.stringify(thisApp.data));
   
-        for (let productData in thisApp.data.products) {
-          this.productRef.push(
-            new Product(productData, thisApp.data.products[productData], this)
-          );
-        }
+        // for (let productData in thisApp.data.products) {
+        //   this.productRef.push(
+        //     new Product(productData, thisApp.data.products[productData], this)
+        //   );
+        // }
       },
   
       /* app init */
@@ -540,7 +577,7 @@
         // console.log('templates:', templates);
   
         thisApp.initData();
-        thisApp.initMenu();
+        //thisApp.initMenu();
         thisApp.initCart();
       },
       initCart: function() {
