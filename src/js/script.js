@@ -172,8 +172,8 @@
 
       /* START: click event listener to trigger */
       clickElements.addEventListener('click', function(e) {
-        // close all
-        //thisProduct.appContext.closeAllAccordions();
+        // close all FIXME:
+        // thisProduct.appContext.closeAllAccordions();
 
         /* prevent default action for event */
         e.preventDefault();
@@ -375,6 +375,8 @@
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
       thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
+      thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
 
       thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
 
@@ -447,7 +449,7 @@
         }
       }
     }
-    /*TODO: FIXME: remove method for cart */
+    /* remove method for cart */
     remove(cartProduct){
       const thisCart = this;
       console.log('this Cart', thisCart);
@@ -464,13 +466,21 @@
       thisCart.updateMethod();
       console.log('this Cart update', thisCart);
     }
+    /* send order method */
     sendOrder(){
+      const thisCart = this;
       const url = settings.db.url + '/' + settings.db.order;
 
       const payload = {
+        products: [],
         address: 'test',
         totalPrice: thisCart.totalPrice,
       };
+
+      for(let product of thisCart.products) {
+        payload.products.push(product.getData());
+        console.log('product',product);
+      }
 
       const options = {
         method: 'POST',
@@ -554,6 +564,16 @@
       });
       thisCartProduct.dom.wrapper.dispatchEvent(event);
     } 
+    /* get data for .getData */
+    getData() {
+      const thisCartProduct = this;
+      thisCartProduct.id;
+      thisCartProduct.ammount;
+      thisCartProduct.price;
+      thisCartProduct.params;
+      thisCartProduct.priceSingle;
+      thisCartProduct.name;
+    }
   }
   const app = {
     productRef: [],
@@ -568,10 +588,9 @@
       const thisApp = this;
 
       for (let productData in thisApp.data.products) {
-        
-          new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
-        
-      }
+        this.productRef.push(
+          new Product(thisApp.data.products[productData].id, thisApp.data.products[productData])
+      );}
     },
 
     /* init data from source */
