@@ -1,4 +1,5 @@
-import {Handlebars} from './utils.js';
+/* global Handlebars */
+
 
 export const select = {
     templateOf: {
