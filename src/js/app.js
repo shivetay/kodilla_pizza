@@ -9,27 +9,27 @@ import Booking from './components/Booking.js';
 
       const thisApp = this;
       /* get container of all children of pages container .children */
-      this.pages = document.querySelector(select.containerOf.pages).children;
+      thisApp.pages = document.querySelector(select.containerOf.pages).children;
       
       /*get all links */
-      this.navLinks = document.querySelectorAll(select.nav.links);
+      thisApp.navLinks = document.querySelectorAll(select.nav.links);
       
-      /* page activation method  this.pages[0].id will get first id of first subpage*/
+      /* page activation method  thisApp.pages[0].id will get first id of first subpage*/
       const idFromHash = window.location.hash.replace('#/', '');
 
-      let pageMatchingHash = this.pages[0].id; 
+      let pageMatchingHash = thisApp.pages[0].id; 
 
-      for(let page of this.pages){
+      for(let page of thisApp.pages){
         if(page.id === idFromHash){
           pageMatchingHash = page.id;
-          brake;
+          break;
         }
       }
 
-      this.activatePage(pageMatchingHash);
+      thisApp.activatePage(pageMatchingHash);
 
       /* add eventlistneres to links */
-      for (let link of this.navLinks){
+      for (let link of thisApp.navLinks){
         link.addEventListener('click', function(e){
           e.preventDefault();
 
@@ -69,9 +69,10 @@ import Booking from './components/Booking.js';
 
       const thisApp = this;
 
-      for (let productData in thisApp.data.products) {
+      for (let productKey in thisApp.data.products) {
+        const productData = thisApp.data.products[productKey];
         this.productRef.push(
-          new Product(thisApp.data.products[productData].id, thisApp.data.products[productData])
+          new Product(productData, thisApp)
       );}
     },
 
@@ -112,9 +113,10 @@ import Booking from './components/Booking.js';
     },
 
     /* boking init */
-    initBookig: function() {
-      const bookingContainer = document.querySelector(select.containerOf.bookingContainer);
-      this.booking = new Booking(bookingContainer);
+    initBooking: function() {
+      const thisApp = this;
+      const bookingContainer = document.querySelector(select.containerOf.booking);
+      thisApp.booking = new Booking(bookingContainer);
     },
 
     /* app init */
@@ -129,7 +131,7 @@ import Booking from './components/Booking.js';
 
       this.initData();
       this.initCart();
-      this.initBookig();
+      this.initBooking();
     },
   };
 

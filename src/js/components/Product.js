@@ -6,10 +6,10 @@ import utils from '../utils.js';
 /*Product object */
  class Product {
     /*product constructor */
-    constructor(id, data, appContext) {
+    constructor(data, appContext) {
       const thisProduct = this;
       thisProduct.appContext = appContext;
-      thisProduct.id = id;
+      thisProduct.id = data.id;
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
@@ -84,7 +84,7 @@ import utils from '../utils.js';
       /* START: click event listener to trigger */
       clickElements.addEventListener('click', function(e) {
         // close all FIXME:
-        // thisProduct.appContext.closeAllAccordions();
+        thisProduct.appContext.closeAllAccordions();
 
         /* prevent default action for event */
         e.preventDefault();
