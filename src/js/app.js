@@ -1,9 +1,63 @@
 
-import {settings, select} from './settings.js';
+import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 
   const app = {
+    initPages: function() {
+
+      const thisApp = this;
+      /* get container of all children of pages container .children */
+      this.pages = document.querySelector(select.containerOf.pages).children;
+      
+      /*get all links */
+      this.navLinks = document.querySelectorAll(select.nav.links);
+      
+      /* page activation method  this.pages[0].id will get first id of first subpage*/
+      const idFromHash = window.location.hash.replace('#/', '');
+
+      let pageMatchingHash = this.pages[0].id; 
+
+      for(let page of this.pages){
+        if(page.id === idFromHash){
+          pageMatchingHash = page.id;
+          brake;
+        }
+      }
+
+      this.activatePage(pageMatchingHash);
+
+      /* add eventlistneres to links */
+      for (let link of this.navLinks){
+        link.addEventListener('click', function(e){
+          e.preventDefault();
+
+          /* get id from href  .replace('#', '') will remove #*/
+          const id = this.getAttribute('href').replace('#', '');
+          /* run activatePage with href attribute */
+          thisApp.activatePage(id);
+          
+          /* change urls hash */
+          window.location.hash = '#' + id;
+        });
+      }
+    },
+
+    activatePage: function(pageId){
+      /* add class active to matching pages and remove active */
+      for(let page of this.pages){
+        page.classList.toggle(classNames.pages.active, page.id === pageId);
+      }
+      /* add class active to matching links and remove active */
+      for(let link of this.navLinks){
+        link.classList.toggle(
+          classNames.nav.active, 
+          link.getAttribute('href') === '#' + pageId
+        );
+      }
+    },
+    
     productRef: [],
     closeAllAccordions: function() {
       this.productRef.forEach(product => product.closeAccordion());
@@ -34,7 +88,7 @@ import Cart from './components/Cart.js';
           return rawResponse.json();
         })
         .then(function(parsedResponse){
-          console.log('parsedResponse', parsedResponse);
+          //console.log('parsedResponse', parsedResponse);
 
           /* save parsedResponse as thisApp.data.products */
           thisApp.data.products = parsedResponse;
@@ -42,7 +96,7 @@ import Cart from './components/Cart.js';
           thisApp.initMenu();
         });
 
-        console.log('thisApp.data', JSON.stringify(thisApp.data));
+        //console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
     /* cart init */
     initCart: function() {
@@ -57,17 +111,25 @@ import Cart from './components/Cart.js';
       });
     },
 
+    /* boking init */
+    initBookig: function() {
+      const bookingContainer = document.querySelector(select.containerOf.bookingContainer);
+      this.booking = new Booking(bookingContainer);
+    },
+
     /* app init */
     init: function() {
-      const thisApp = this;
       // console.log('*** App starting ***');
       // console.log('thisApp:', thisApp);
       // console.log('classNames:', classNames);
       // console.log('settings:', settings);
       // console.log('templates:', templates);
 
-      thisApp.initData();
-      thisApp.initCart();
+      this.initPages();
+
+      this.initData();
+      this.initCart();
+      this.initBookig();
     },
   };
 

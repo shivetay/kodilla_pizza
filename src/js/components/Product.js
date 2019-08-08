@@ -183,7 +183,7 @@ import utils from '../utils.js';
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem.innerHTML = thisProduct.price;
 
-      console.log('this product params', thisProduct.params);
+      //console.log('this product params', thisProduct.params);
     }
 
     /*add to cart */
