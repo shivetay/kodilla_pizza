@@ -25,6 +25,10 @@ class Booking {
     /* change warper to html code */
     thisBooking.dom.wrapper = utils.createDOMFromHTML(generatedHtml);
     // console.log('html', thisBooking.dom.wrapper);
+
+    /* insert to DOM */
+    const bookingContainer = document.querySelector(select.containerOf.booking);
+    bookingContainer.appendChild(thisBooking.dom.wrapper);
    
     /* find single element for people amount */
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(
