@@ -72,7 +72,7 @@ export const select = {
     },
   };
   
-export  const classNames = {
+export const classNames = {
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
@@ -94,7 +94,7 @@ export  const classNames = {
     },
   };
   
-export  const settings = {
+export const settings = {
     hours: {
       open: 12,
       close: 24,

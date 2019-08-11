@@ -1,4 +1,4 @@
-import {select, settings} from '../settings.js';
+import {settings} from '../settings.js';
 
 class BaseWidget{
     constructor(wrpapperElement, initialValue) {
@@ -43,13 +43,16 @@ class BaseWidget{
     setValue(value){
         const thisWidget = this;
         thisWidget.value = value;
+        //return thisWidget.value;
     }
     parseValue(value){
+        //zmiana w module 10.3 pkt 3
         return parseInt(value);
+        //return value;
     }
     
     isValid(value){
-    return !isNaN(value)
+    return !isNaN(value);
     }
 
     renderValue(){
