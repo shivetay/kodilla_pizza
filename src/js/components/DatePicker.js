@@ -11,17 +11,17 @@ class DatePicker extends BaseWidget {
 
         thisWidget.dom.wrapper = wrapper;
         thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
-        console.log('input',thisWidget.dom.input);
+        // console.log('input',thisWidget.dom.input);
         
         thisWidget.initPlugin();
     }
     initPlugin(){
         const thisWidget = this;
         thisWidget.minDate = new Date(thisWidget.value);
-        console.log('min date', thisWidget.minDate);
+        // console.log('min date', thisWidget.minDate);
         thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
-        console.log('max date', thisWidget.maxDate);
-        console.log(settings.datePicker.maxDaysInFuture);
+        // console.log('max date', thisWidget.maxDate);
+        // console.log(settings.datePicker.maxDaysInFuture);
 
         flatpickr(thisWidget.dom.input,{
             defaultDate: thisWidget.minDate,
@@ -44,7 +44,7 @@ class DatePicker extends BaseWidget {
     parseValue(value){
         //zmiana w module 10.3 pkt 3
         //return parseInt(value);
-        console.log('value',value);
+        // console.log('value',value);
         return value;
     }
     renderValue(){
