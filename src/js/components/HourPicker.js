@@ -19,6 +19,7 @@ class HourPicker extends BaseWidget {
         thisWidget.value = thisWidget.dom.input.value;
         // thisWidget.dom.input.value = thisWidget.value;
         console.log('input val', thisWidget.value);
+        console.log('hours', settings.hours.open);
     }
     initPlugin(){
         const thisWidget = this;
@@ -32,18 +33,18 @@ class HourPicker extends BaseWidget {
     }
     parseValue(value){
         utils.numberToHour(value);
-        console.log('val**', value);
+        console.log('val**', utils.numberToHour(value));
         return value;
         
     }
-    isValid(value){
-        return isNaN(value);
-      }
+    // isValid(value){
+    //     return isNaN(value);
+    //   }
 
     renderValue(){
         const thisWidget = this;
         thisWidget.dom.output.innerHTML = thisWidget.value;
-        console.log('outpu',thisWidget.dom.output);
+        // console.log('outpu',thisWidget.dom.output);
     }
 }
 
