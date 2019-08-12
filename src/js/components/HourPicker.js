@@ -32,19 +32,19 @@ class HourPicker extends BaseWidget {
         });
     }
     parseValue(value){
-        utils.numberToHour(value);
-        console.log('val**', utils.numberToHour(value));
-        return value;
+        // utils.numberToHour(value);
+        // console.log('val**', utils.numberToHour(value));
+        return utils.numberToHour(value);
         
     }
-    // isValid(value){
-    //     return isNaN(value);
-    //   }
+    isValid(){
+        return true;
+      }
 
     renderValue(){
         const thisWidget = this;
         thisWidget.dom.output.innerHTML = thisWidget.value;
-        // console.log('outpu',thisWidget.dom.output);
+        console.log('outpu',thisWidget.dom.output.innerHTML);
     }
 }
 
