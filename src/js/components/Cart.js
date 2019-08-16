@@ -101,19 +101,19 @@ class Cart{
     /* remove method for cart */
     remove(cartProduct){
       const thisCart = this;
-      console.log('this Cart', thisCart);
+      // console.log('this Cart', thisCart);
       /* const idext with cartProduct as index of thisCart.products arr */
       const index = thisCart.products.indexOf(cartProduct);
-      console.log('index', index);
+      // console.log('index', index);
       /*remove values from arr */
       thisCart.products.splice(index);
-      console.log('this cart products', thisCart.products);
+      // console.log('this cart products', thisCart.products);
       /*remove from DOM */
       cartProduct.dom.wrapper.remove();
       //thisCart.remove(cartProduct);
 
       thisCart.updateMethod();
-      console.log('this Cart update', thisCart);
+      // console.log('this Cart update', thisCart);
     }
     /* send order method */
     sendOrder(){

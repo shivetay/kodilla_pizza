@@ -47,6 +47,9 @@ class DatePicker extends BaseWidget {
         // console.log('value',value);
         return value;
     }
+    // isValid(){
+    //     return true;
+    // }
     renderValue(){
 
     }
