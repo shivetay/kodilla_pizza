@@ -265,6 +265,26 @@
         "duration": 4,
         "ppl": 3,
         "starters": []
+      },
+      {
+        "id": 1,
+        "date": "2019-08-17",
+        "hour": "14:30",
+        "table": 1,
+        "repeat": false,
+        "duration": 4,
+        "ppl": 3,
+        "starters": []
+      },
+      {
+        "id": 1,
+        "date": "2019-08-17",
+        "hour": "16:30",
+        "table": 1,
+        "repeat": false,
+        "duration": 4,
+        "ppl": 3,
+        "starters": []
       }
     ]
   }
