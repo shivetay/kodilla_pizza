@@ -45,12 +45,13 @@ import Booking from './components/Booking.js';
     },
 
     activatePage: function(pageId){
+      const thisApp = this;
       /* add class active to matching pages and remove active */
-      for(let page of this.pages){
+      for(let page of thisApp.pages){
         page.classList.toggle(classNames.pages.active, page.id === pageId);
       }
       /* add class active to matching links and remove active */
-      for(let link of this.navLinks){
+      for(let link of thisApp.navLinks){
         link.classList.toggle(
           classNames.nav.active, 
           link.getAttribute('href') === '#' + pageId
@@ -60,7 +61,7 @@ import Booking from './components/Booking.js';
     
     productRef: [],
     closeAllAccordions: function() {
-      this.productRef.forEach(product => product.closeAccordion());
+      thisApp.productRef.forEach(product => product.closeAccordion());
     },
     /* creates new Product */
     initMenu: function() {

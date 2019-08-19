@@ -243,8 +243,6 @@ class Booking {
       }
     }
 
-   
-
     const options = {
       method: 'POST',
       headers: {

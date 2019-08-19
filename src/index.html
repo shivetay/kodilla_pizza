@@ -61,8 +61,102 @@
     </div>
   </header>
 
-  <!-- <div id="product-list" class="product-list container"></div> -->
+  <div id="pages">
+    <section id="home">
+        <div id="main-home" class="main-home container"></div>
+    </section>
+    <section id="order">
+      <div id="product-list" class="product-list container"></div>
+    </section>
+    <section id="booking">
+      <div class="booking-wrapper container"></div>
+    </section>
+  </div>
 
+  <!-- <div id="product-list" class="product-list container"></div> -->
+<script id="template-main-home" type="text/x-handlebars-template">
+<div class="container">
+    <div class="grid">
+      <article class="options">
+        <div class="options__order">
+          <p><a href="#order" class="options__order-link">Order online</a> <span>Delicous food delivered at your door</span></p>
+        </div>
+        <div class="options__book">
+          <p><a href="#booking" class="options__book-link">book a table</a></p>
+        </div>
+        <div class="options__hours">
+          <h3 class="options__hours-hour">Opening hours:</h3>
+          <p class="options__hours-days">mon-sun, 12pm-11pm</p>
+        </div>
+      </article> <!--end options-->
+      <article class="carousel">
+        <div class="carousel__img">
+            <img src="/images/pizza-3.jpg" alt="women eating">
+        </div>
+          <div class="carousel__slide slide-1 active">
+            <h3 class="slide__header">Et magni iusto debitis blanditiis.</h3>
+            <p class="slide__text">Bacon ipsum dolor amet kevin shank chuck beef ribs bacon jowl. Beef ribs drumstick hamburger tri-tip, kevin cow boudin rump.</p>
+            <p class="slide__author">- Ona Sporer</p>
+          </div>
+          <div class="carousel__slide slide-2">
+            <h3 class="slide__header">Architecto minima ea vel suscipit</h3>
+            <p class="slide__text">Cupim drumstick bacon turducken landjaeger burgdoggen t-bone buffalo short loin pancetta strip steak.</p>
+            <p class="slide__author">- Wilfrid Satterfield</p>
+          </div>
+          <div class="carousel__slide slide-3">
+            <h3 class="slide__header">Animi saepe qui in aliquam similiq.</h3>
+            <p class="slide__text">Meatloaf sausage pastrami, flank ball tip kielbasa boudin picanha sirloin prosciutto beef ribs frankfurter drumstick.</p>
+            <p class="slide__author">- Madisyn Welch</p>
+          </div>
+      </article> <!--end carousel-->
+      <section class="galery">
+        <div class="icons icons__item-1">
+          <i class="fab fa-cloudsmith"></i>
+          <i class="fas fa-heart"></i>
+        </div>
+        <figure class="galery__img galery__item-1">
+          <img src="./images/pizza-4.jpg" alt="pizza_img-1">
+        </figure>
+        <div class="icons icons__item-2">
+          <i class="fab fa-cloudsmith"></i>
+          <i class="fas fa-heart"></i>
+        </div>
+        <figure class="galery__img galery__item-2">
+          <img src="./images/pizza-5.jpg" alt="pizza_img-2">
+        </figure>
+        <div class="icons icons__item-3">
+          <i class="fab fa-cloudsmith"></i>
+          <i class="fas fa-heart"></i>
+        </div>
+        <figure class="galery__img galery__item-3">
+          <img src="./images/pizza-6.jpg" alt="pizza_img-3">
+        </figure>
+        <div class="icons icons__item-4">
+          <i class="fab fa-cloudsmith"></i>
+          <i class="fas fa-heart"></i>
+        </div>
+        <figure class="galery__img galery__item-4">
+            <img src="./images/pizza-7.jpg" alt="pizza_img-4">
+        </figure>
+        <div class="icons icons__item-5">
+          <i class="fab fa-cloudsmith"></i>
+          <i class="fas fa-heart"></i>
+        </div>
+        <figure class="galery__img galery__item-5">
+          <img src="./images/pizza-8.jpg" alt="pizza_img-5">
+        </figure>
+        <div class="icons icons__item-6">
+          <i class="fab fa-cloudsmith"></i>
+          <i class="fas fa-heart"></i>
+        </div>
+        <figure class="galery__img galery__item-6">
+          <img src="./images/pizza-9.jpg" alt="pizza_img-6">
+        </figure>
+      </section>
+    </div> <!--end grid-->
+  </div> <!--end container home-->
+</script>
+<!-- end home -->
 
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
@@ -94,91 +188,81 @@
 
   <script id="template-menu-product" type="text/x-handlebars-template">
     <article class="product"> <!-- product -->
-
-        <header class="product__header">
-          <h3 class="product__name no-spacing">{{ name }} <i class="fas fa-chevron-down product__icon"></i></h3>
-          <p class="product__base-price no-spacing">${{ price }}</p>
-        </header>
-        <div class="product__description"> <!-- description -->
-          <p>{{{ description }}}</p>
-        </div> <!-- .description -->
-        <div class="product__wrapper"> <!-- details -->
-          <form class="product__order">
-            <ul class="product__params"> <!-- params -->
-              {{#each params as |param paramId| }}
-              {{#ifEquals type "checkboxes"}}
-              <li> <!-- checkboxes -->
-                <h3 class="product__params-title">{{{ label }}}</h3>
-                {{#each options}}
-                <div class="checkbox"> <!-- checkbox -->
-                  <label>
-                    <input type="checkbox" name="{{ paramId }}" value="{{ @key }}" id="{{ @key }}" {{#if default}}checked{{/if}}>
-                    <span class="checkbox__checkmark"></span>
-                    {{{ label }}} (${{{ price }}})
-                  </label>
-                </div>
-                {{/each}}
-              </li>
-              {{/ifEquals}}
-              {{#ifEquals type "radios"}}
-              <li> <!-- radios -->
-                <h3 class="product__params-title">{{{ label }}}</h3>
-                {{#each options}}
-                <div class="checkbox checkbox--round"> <!-- radio -->
-                  <label>
-                    {{{ label }}} (${{{ price }}})
-                    <input type="radio" name="{{ paramId }}" value="{{ @key }}" id="{{ @key }}" {{#if default}}checked{{/if}}>
-                    <span class="checkbox__checkmark"></span>
-                  </label>
-                </div>
-                {{/each}}
-              </li>
-              {{/ifEquals}}
-              {{#ifEquals type "select"}}
-              <li> <!-- select -->
-                <h3 class="product__params-title">{{{ label }}}</h3>
-                <select name="{{ paramId }}">
-                  {{#each options}}
-                  <option value="{{ @key }}" {{#if default}}selected{{/if}}>{{{ label }}} (${{{ price }}})</option>
-                  {{/each}}
-                </select>
-              </li>
-              {{/ifEquals}}
+      <header class="product__header">
+        <h3 class="product__name no-spacing">{{ name }} <i class="fas fa-chevron-down product__icon"></i></h3>
+        <p class="product__base-price no-spacing">${{ price }}</p>
+      </header>
+      <div class="product__description"> <!-- description -->
+        <p>{{{ description }}}</p>
+      </div> <!-- .description -->
+      <div class="product__wrapper"> <!-- details -->
+        <form class="product__order">
+          <ul class="product__params"> <!-- params -->
+            {{#each params as |param paramId| }}
+            {{#ifEquals type "checkboxes"}}
+            <li> <!-- checkboxes -->
+              <h3 class="product__params-title">{{{ label }}}</h3>
+              {{#each options}}
+              <div class="checkbox"> <!-- checkbox -->
+                <label>
+                  <input type="checkbox" name="{{ paramId }}" value="{{ @key }}" id="{{ @key }}" {{#if default}}checked{{/if}}>
+                  <span class="checkbox__checkmark"></span>
+                  {{{ label }}} (${{{ price }}})
+                </label>
+              </div>
               {{/each}}
-            </ul>
-            <div class="amount"> <!-- controls -->
-              <div class="widget-amount"> <!-- widget-amount -->
-                <h3 class="product__params-title">Select quantity</h3>
-                <a class="btn-quantity" href="#less"><i class="fas fa-minus"></i></a>
-                <input class="amount" type="text" value="1">
-                <a class="btn-quantity" href="#more"><i class="fas fa-plus"></i></a>
+            </li>
+            {{/ifEquals}}
+            {{#ifEquals type "radios"}}
+            <li> <!-- radios -->
+              <h3 class="product__params-title">{{{ label }}}</h3>
+              {{#each options}}
+              <div class="checkbox checkbox--round"> <!-- radio -->
+                <label>
+                  {{{ label }}} (${{{ price }}})
+                  <input type="radio" name="{{ paramId }}" value="{{ @key }}" id="{{ @key }}" {{#if default}}checked{{/if}}>
+                  <span class="checkbox__checkmark"></span>
+                </label>
               </div>
-              <p class="product__total-price">
-                Total: $<span class="price">{{{ price }}}</span>
-              </p>
-              <div> <!-- add-to-cart -->
-                <a class="btn-primary" href="#add-to-cart">Add to cart</a>
-              </div>
-            </div>
-          </form>
-          <div class="product__images {{ class }}"> <!-- images -->
-            {{#each images}}
-            {{{ this }}}
+              {{/each}}
+            </li>
+            {{/ifEquals}}
+            {{#ifEquals type "select"}}
+            <li> <!-- select -->
+              <h3 class="product__params-title">{{{ label }}}</h3>
+              <select name="{{ paramId }}">
+                {{#each options}}
+                <option value="{{ @key }}" {{#if default}}selected{{/if}}>{{{ label }}} (${{{ price }}})</option>
+                {{/each}}
+              </select>
+            </li>
+            {{/ifEquals}}
             {{/each}}
+          </ul>
+          <div class="amount"> <!-- controls -->
+            <div class="widget-amount"> <!-- widget-amount -->
+              <h3 class="product__params-title">Select quantity</h3>
+              <a class="btn-quantity" href="#less"><i class="fas fa-minus"></i></a>
+              <input class="amount" type="text" value="1">
+              <a class="btn-quantity" href="#more"><i class="fas fa-plus"></i></a>
+            </div>
+            <p class="product__total-price">
+              Total: $<span class="price">{{{ price }}}</span>
+            </p>
+            <div> <!-- add-to-cart -->
+              <a class="btn-primary" href="#add-to-cart">Add to cart</a>
+            </div>
           </div>
+        </form>
+        <div class="product__images {{ class }}"> <!-- images -->
+          {{#each images}}
+          {{{ this }}}
+          {{/each}}
         </div>
-
+      </div>
     </article> <!-- .product -->
   </script>
-  <div id="pages">
-    <section id="order">
-      <div id="product-list" class="product-list container"></div>
-    </section>
-    <section id="booking">
-      <div class="booking-wrapper container"></div>
-    </section>
-  </div>
-
+ 
   <script id="template-booking-widget" type="text/x-handlebars-template">
     <div class="booking-widget">
       <h2 class="page__title no-spacing">Book a table</h2>
@@ -248,6 +332,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="./vendor/range-slider.min.js" ></script>
+  <!-- <script src="js/components/Slider.js"></script> -->
   <script src="js/app.js" type="module"></script>
 </body>
 </html>
