@@ -152,6 +152,7 @@ class Booking {
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
       if(!isNaN(tableId)){
         tableId = parseInt(tableId);
+        console.log(tableId);
       }
       if(!allAvailbe && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)){
         table.classList.add(classNames.booking.tableBooked);
@@ -219,15 +220,17 @@ class Booking {
     const thisBooking = this;
     const url = settings.db.url + '/' + settings.db.booking;
     // console.log('url', url);
+    let freeTables = [];
     
     const payload = {
-      table: thisBooking.tableId,
+      table: [],
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
       duration: thisBooking.hoursAmount.value,
       people: thisBooking.peopleAmount.value,
       starters: [],
     };
+    console.log('payload', payload);
     
     for(let starter of thisBooking.dom.starters){
       if(starter.checked === true){
@@ -235,13 +238,28 @@ class Booking {
         console.log('satrters', starter.value);
       }
     }
+    //FIXME:
     for(let table of thisBooking.dom.tables){
-      if(table.classList.contains('booked')){
-        let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-        console.log(tableId);
-        tableId;
+      if(!table.classList.contains('booked')){
+        let tableId = table.getAttribute('data-table');
+        freeTables.push(tableId);
+        console.log('tables', freeTables);
+      for(let freeTable in freeTables){
+        console.log('**', freeTable);
+      // if(freeTable.classList.contains('booked')){
+      // //   freeTable = thisBooking.dom.tables;
+        // console.log('zaklepany', freeTable);
+      // // if(freeTable.classList.contains('booked')){
+      // //   console.log('zaklepany', freeTable);
+      // // }
+      // //   if (freeTable.classList.contains('booked')){
+      // //     payload.table.push(freeTable);
+        //  }
+        }
       }
     }
+
+    console.log('payload', payload);
 
     const options = {
       method: 'POST',

@@ -61,6 +61,7 @@ import Booking from './components/Booking.js';
     
     productRef: [],
     closeAllAccordions: function() {
+      const thisApp = this;
       thisApp.productRef.forEach(product => product.closeAccordion());
     },
     /* creates new Product */

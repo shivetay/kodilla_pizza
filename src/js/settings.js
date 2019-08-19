@@ -68,6 +68,7 @@ export const select = {
       peopleAmount: '.people-amount',
       hoursAmount: '.hours-amount',
       tables: '.floor-plan .table',
+      table: '.table',
       form: '.booking-form',
       formSubmit: '.booking-form [type="submit]',
     },
@@ -139,5 +140,6 @@ export  const templates = {
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
     // CODE ADDED END
     bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
+    
     homePage: Handlebars.compile(document.querySelector(select.templateOf.homePage).innerHTML),
   };
