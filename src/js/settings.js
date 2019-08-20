@@ -13,7 +13,9 @@ export const select = {
       cart: '#cart',
       pages: '#pages',
       booking: '.booking-wrapper',
-      home: '.container__home'
+      home: '.container__home',
+      rangeSlider: '.rangeSlider',
+      rangeWrapper: '.main-range',
     },
     all: {
       menuProducts: '#product-list > .product',
@@ -110,6 +112,12 @@ export const classNames = {
       hide: 'hide',
       unhide: 'unhide',
     },
+    rangeSlider: {
+      allOccupied: 'allOccupied',
+      oneFree: 'oneFree',
+      allFree: 'allFree',
+      half: 'half',
+    },
   };
   
 export const settings = {
@@ -135,7 +143,7 @@ export const settings = {
     },
     /* add local db */
     db: {
-      url: '//localhost:3131',
+      url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
       product: 'product',
       order: 'order',
       booking: 'booking',

@@ -110,6 +110,7 @@ class Booking {
     }
     // console.log('this booking', thisBooking.booked);
     thisBooking.updateDOM();
+    thisBooking.colorSlider();
   }
   makeBooked(date, hour, duration, table){
     const thisBooking = this;
@@ -274,5 +275,56 @@ class Booking {
       thisBooking.updateDOM();
     });
   }
+
+  /* range slider colors */
+
+  colorSlider(){
+    const thisBooking = this;
+
+    let rangeSliderWrapper = document.querySelector(select.containerOf.rangeSlider);
+    // console.log('RANGE SLIDER', rangeSliderWrapper);
+
+    let rangeContainer = document.createElement('div');
+    rangeContainer.classList.add('main-range');
+    rangeSliderWrapper.appendChild(rangeContainer);
+    // console.log('r s', rangeSliderWrapper);
+
+    for (let i = 12; i < 24; i = i + 0.5) {
+      let colorLayer = document.createElement('div');
+      colorLayer.classList.add('half');
+      colorLayer.setAttribute('data-tag', i);
+      console.log('cl', colorLayer);
+      rangeContainer.appendChild(colorLayer);
+    }
+
+    thisBooking.parts = Array.from(document.querySelector(select.containerOf.rangeWrapper).children);
+    console.log('thisBooking.PARTS', thisBooking.parts);
+
+    thisBooking.date = thisBooking.datePicker.value;
+    console.log('date', thisBooking.date);
+
+    for (let part of thisBooking.parts) {
+      part.classList.remove(classNames.rangeSlider.allOccupied, classNames.rangeSlider.oneFree, classNames.rangeSlider.allFree);
+      const partNumber = part.getAttribute('data-tag');
+      console.log('poart', partNumber);
+      for (let i = 12; i < 24; i = i + 0.5) {
+        if (partNumber === i && (typeof thisBooking.booked[thisBooking.date][i] === 'undefined') || ((partNumber === i && thisBooking.booked[thisBooking.date][i].length === 1))) {
+          part.classList.add(classNames.rangeSlider.allFree);
+        } else if (partNumber === i && thisBooking.booked[thisBooking.date][i].length === 3) {
+          part.classList.add(classNames.rangeSlider.allOccupied);
+        } else if (partNumber === i && thisBooking.booked[thisBooking.date][i].length === 2) {
+          part.classList.add(classNames.rangeSlider.oneFree);
+        }
+      }
+    }
+  }
+
+
+
+
+
+
 }
+
+
 export default Booking;
