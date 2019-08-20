@@ -173,8 +173,9 @@
       }
     }
 
-    &.booked {
-      cursor: not-allowed;
+    &.booked{cursor: not-allowed;}
+    &.booked,
+    &.reserved{
       color: lighten($color-dark, 40%);
 
       &::after {

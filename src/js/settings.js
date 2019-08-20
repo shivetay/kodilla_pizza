@@ -73,14 +73,15 @@ export const select = {
       formSubmit: '.booking-form [type="submit]',
     },
     home: {
-      container: '.container',
-      grid: '.grid',
+      // container: '.container',
+      // grid: '.grid',
       options: '.options a',
-      carousel: '.carousel',
-      galery: '.galery',
+      // carousel: '.carousel',
+      // galery: '.galery',
     },
     nav: {
       links: '.main-nav a',
+      logoLink:'.logo a',
     },
   };
   
@@ -97,12 +98,17 @@ export const classNames = {
     booking: {
       loading: 'loading',
       tableBooked: 'booked',
+      reserved: 'reserved',
     },
     nav: {
       active: 'active',
     },
     pages: {
       active: 'active',
+    },
+    helper: {
+      hide: 'hide',
+      unhide: 'unhide',
     },
   };
   

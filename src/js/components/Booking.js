@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { select, templates, settings, classNames } from '../settings.js';
 import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
@@ -10,7 +12,6 @@ class Booking {
 
     thisBooking.render(element);
     thisBooking.initWidgets();
-    // thisBooking.getElements(element);
     thisBooking.initActions();
     thisBooking.getData();
   }
@@ -64,9 +65,6 @@ class Booking {
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]){
-        // console.log('booking',bookings);
-        // console.log('curent',eventsCurrent);
-        // console.log(eventsRepeat);
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
@@ -125,7 +123,6 @@ class Booking {
 
    /*loop for all enteties of specific table for all hours */
     for(let i = startHour; i< startHour + duration; i+= 0.5){
-      // console.log(i);
        /*check dates if we have any booking for specific date */
       if(typeof thisBooking.booked[date][i] === 'undefined'){
         thisBooking.booked[date][i] = [];
@@ -148,6 +145,7 @@ class Booking {
     ){
       allAvailbe = true;
     }
+
     for(let table of thisBooking.dom.tables){
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
       if(!isNaN(tableId)){
@@ -161,7 +159,7 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
         table.addEventListener('click', function(e){
           e.preventDefault();
-          table.classList.toggle(classNames.booking.tableBooked);
+          table.classList.toggle(classNames.booking.reserved);
         });
       }
     }
@@ -212,7 +210,7 @@ class Booking {
 
    /*create table html */
    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-  //  thisBooking.dom.tablesNot = document.querySelectorAll('.table:not(.booked)');
+  thisBooking.dom.reserved = thisBooking.dom.wrapper.querySelector(select.containerOf.reserved);
 
    /* starter */
    thisBooking.dom.starters = document.getElementsByName('starter');
@@ -222,8 +220,9 @@ class Booking {
     const thisBooking = this;
     const url = settings.db.url + '/' + settings.db.booking;
     // console.log('url', url);
-    
+
     const payload = {
+      // table: thisBooking.table,
       table: [],
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
@@ -231,39 +230,21 @@ class Booking {
       people: thisBooking.peopleAmount.value,
       starters: [],
     };
-    console.log('payload', payload);
-    
+
     for(let starter of thisBooking.dom.starters){
       if(starter.checked === true){
         payload.starters.push(starter.value);
-        console.log('satrters', starter.value);
       }
     }
-    //FIXME:
     for(let table of thisBooking.dom.tables){
-      console.log('table', table);
-      
-      
-      // if(!table.classList.contains('booked')){
-      //   let tableId = table.getAttribute('data-table');
-      //   freeTables.push(tableId);
-      //   console.log('tables', freeTables);
-      // for(let freeTable in freeTables){
-      //   console.log('**', freeTable);
-      // if(freeTable.classList.contains('booked')){
-      // //   freeTable = thisBooking.dom.tables;
-      //   console.log('zaklepany', freeTable);
-      // if(freeTable.classList.contains('booked')){
-      //   console.log('zaklepany', freeTable);
-      // }
-      //   if (freeTable.classList.contains('booked')){
-      //     payload.table.push(freeTable);
-        //  }
-        // }
-      // }
+      if(table.classList.contains('reserved')){
+        let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+        /* for multi tables */
+        payload.table.push(tableId);
+        table.classList.remove('reserved');
+        // thisBooking.table = tableId;
+      }
     }
-
-    console.log('payload', payload);
 
     const options = {
       method: 'POST',

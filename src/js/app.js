@@ -14,6 +14,8 @@ import Booking from './components/Booking.js';
       /*get all links */
       thisApp.navLinks = document.querySelectorAll(select.nav.links);
       thisApp.homeLinks = document.querySelectorAll(select.home.options);
+      thisApp.headerLinks = document.querySelectorAll(select.nav.logoLink);
+      thisApp.cartContainer  = document.querySelector('.cart');
       
       /* page activation method  thisApp.pages[0].id will get first id of first subpage*/
       const idFromHash = window.location.hash.replace('#/', '');
@@ -55,7 +57,20 @@ import Booking from './components/Booking.js';
           /* change urls hash */
           window.location.hash = '#' + id;
         });
-      }
+        for (let link of thisApp.headerLinks){
+          link.addEventListener('click', function(e){
+            e.preventDefault();
+  
+            /* get id from href  .replace('#', '') will remove #*/
+            const id = this.getAttribute('href').replace('#', '');
+            /* run activatePage with href attribute */
+            thisApp.activatePage(id);
+            
+            /* change urls hash */
+            window.location.hash = '#' + id;
+          });
+        }
+      } 
     },
 
     activatePage: function(pageId){
@@ -70,6 +85,15 @@ import Booking from './components/Booking.js';
           classNames.nav.active, 
           link.getAttribute('href') === '#' + pageId
         );
+        if(pageId === 'home'){
+          link.classList.add(
+            classNames.helper.hide
+          );
+        } else {
+          link.classList.remove(
+            classNames.helper.hide
+          );
+        }
       }
       for (let link of thisApp.homeLinks){
         link.getAttribute('href') === '#' + pageId

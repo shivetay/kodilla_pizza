@@ -19,6 +19,10 @@
     font-family: $font-header;
     font-weight: $font-light;
     text-transform: uppercase;
+    a{
+      text-decoration: none;
+      color: inherit;
+    }
 
     span {
       font-weight: $font-bold;
@@ -39,6 +43,7 @@
   position: absolute;
   @include flex(row, flex-start, flex-start);
   bottom: ($base-size * -8);
+  opacity: 1;
 
   a {
     @extend .h2;
