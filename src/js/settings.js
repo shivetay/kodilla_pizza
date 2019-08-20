@@ -13,7 +13,7 @@ export const select = {
       cart: '#cart',
       pages: '#pages',
       booking: '.booking-wrapper',
-      home: '.main-home'
+      home: '.container__home'
     },
     all: {
       menuProducts: '#product-list > .product',
@@ -71,6 +71,13 @@ export const select = {
       table: '.table',
       form: '.booking-form',
       formSubmit: '.booking-form [type="submit]',
+    },
+    home: {
+      container: '.container',
+      grid: '.grid',
+      options: '.options a',
+      carousel: '.carousel',
+      galery: '.galery',
     },
     nav: {
       links: '.main-nav a',

@@ -151,8 +151,9 @@ class Booking {
     for(let table of thisBooking.dom.tables){
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
       if(!isNaN(tableId)){
+        //convert to number
         tableId = parseInt(tableId);
-        console.log(tableId);
+        // console.log(tableId);
       }
       if(!allAvailbe && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)){
         table.classList.add(classNames.booking.tableBooked);
@@ -211,6 +212,7 @@ class Booking {
 
    /*create table html */
    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+  //  thisBooking.dom.tablesNot = document.querySelectorAll('.table:not(.booked)');
 
    /* starter */
    thisBooking.dom.starters = document.getElementsByName('starter');
@@ -220,7 +222,6 @@ class Booking {
     const thisBooking = this;
     const url = settings.db.url + '/' + settings.db.booking;
     // console.log('url', url);
-    let freeTables = [];
     
     const payload = {
       table: [],
@@ -240,23 +241,26 @@ class Booking {
     }
     //FIXME:
     for(let table of thisBooking.dom.tables){
-      if(!table.classList.contains('booked')){
-        let tableId = table.getAttribute('data-table');
-        freeTables.push(tableId);
-        console.log('tables', freeTables);
-      for(let freeTable in freeTables){
-        console.log('**', freeTable);
+      console.log('table', table);
+      
+      
+      // if(!table.classList.contains('booked')){
+      //   let tableId = table.getAttribute('data-table');
+      //   freeTables.push(tableId);
+      //   console.log('tables', freeTables);
+      // for(let freeTable in freeTables){
+      //   console.log('**', freeTable);
       // if(freeTable.classList.contains('booked')){
       // //   freeTable = thisBooking.dom.tables;
-        // console.log('zaklepany', freeTable);
-      // // if(freeTable.classList.contains('booked')){
-      // //   console.log('zaklepany', freeTable);
-      // // }
-      // //   if (freeTable.classList.contains('booked')){
-      // //     payload.table.push(freeTable);
+      //   console.log('zaklepany', freeTable);
+      // if(freeTable.classList.contains('booked')){
+      //   console.log('zaklepany', freeTable);
+      // }
+      //   if (freeTable.classList.contains('booked')){
+      //     payload.table.push(freeTable);
         //  }
-        }
-      }
+        // }
+      // }
     }
 
     console.log('payload', payload);

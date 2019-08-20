@@ -13,6 +13,7 @@ import Booking from './components/Booking.js';
       
       /*get all links */
       thisApp.navLinks = document.querySelectorAll(select.nav.links);
+      thisApp.homeLinks = document.querySelectorAll(select.home.options);
       
       /* page activation method  thisApp.pages[0].id will get first id of first subpage*/
       const idFromHash = window.location.hash.replace('#/', '');
@@ -42,6 +43,19 @@ import Booking from './components/Booking.js';
           window.location.hash = '#' + id;
         });
       }
+      for (let link of thisApp.homeLinks){
+        link.addEventListener('click', function(e){
+          e.preventDefault();
+
+          /* get id from href  .replace('#', '') will remove #*/
+          const id = this.getAttribute('href').replace('#', '');
+          /* run activatePage with href attribute */
+          thisApp.activatePage(id);
+          
+          /* change urls hash */
+          window.location.hash = '#' + id;
+        });
+      }
     },
 
     activatePage: function(pageId){
@@ -56,6 +70,9 @@ import Booking from './components/Booking.js';
           classNames.nav.active, 
           link.getAttribute('href') === '#' + pageId
         );
+      }
+      for (let link of thisApp.homeLinks){
+        link.getAttribute('href') === '#' + pageId
       }
     },
     
@@ -120,6 +137,7 @@ import Booking from './components/Booking.js';
       const bookingContainer = document.querySelector(select.containerOf.booking);
       thisApp.booking = new Booking(bookingContainer);
     },
+
 
     /* app init */
     init: function() {
