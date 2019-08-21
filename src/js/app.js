@@ -96,7 +96,7 @@ import Booking from './components/Booking.js';
         }
       }
       for (let link of thisApp.homeLinks){
-        link.getAttribute('href') === '#' + pageId
+        link.getAttribute('href') === '#' + pageId;
       }
     },
     
