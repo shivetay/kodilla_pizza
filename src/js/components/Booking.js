@@ -210,7 +210,9 @@ class Booking {
         });
       }
     }
-    thisBooking.colorSlider();
+    thisBooking.dom.datePicker.addEventListener('updated', function() {
+      thisBooking.colorSlider(thisBooking.date);
+    });
   }
 
   initActions() {

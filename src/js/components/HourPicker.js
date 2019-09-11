@@ -4,7 +4,7 @@ import utils from '../utils.js';
 import { select, settings } from '../settings.js';
 
 class HourPicker extends BaseWidget {
-  constructor(wrapper, Booking) {
+  constructor(wrapper) {
     super(wrapper, settings.hours.open);
 
     const thisWidget = this;
