@@ -76,15 +76,7 @@ class Booking {
     thisBooking.booked = {};
     /* zawiera wszystkie elementy i wpycha je do nowej ablicy 'events' */
     const events = [...bookings, ...eventsCurrent, ...eventsRepeat];
-    /* loop for all events */
-    // for(let item of eventsCurrent){
-    //   thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
-    // }
-    /* loop for all bookings */
-    // for(let item of bookings){
-    //   thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
-    // }
-    console.log('events', events);
+   
     const minDate = thisBooking.datePicker.minDate;
     const maxDate = thisBooking.datePicker.maxDate;
     /*sparwdzenie dziennego lub tygodniowego eventu */
@@ -108,10 +100,11 @@ class Booking {
         thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
       }
     }
-    // console.log('this booking', thisBooking.booked);
+
     thisBooking.updateDOM();
     thisBooking.colorSlider();
   }
+
   makeBooked(date, hour, duration, table){
     const thisBooking = this;
 
@@ -318,13 +311,6 @@ class Booking {
       }
     }
   }
-
-
-
-
-
-
 }
-
 
 export default Booking;
